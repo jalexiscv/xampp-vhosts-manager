@@ -22,3 +22,6 @@ tmp/
 
 # MSYS artifacts
 %SystemDrive%/
+
+# Test/prueba directories
+prueba/
