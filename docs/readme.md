@@ -1,22 +1,21 @@
-# Documentación de Xampp vHosts Manager
+# Documentación
 
-Bienvenido al directorio de documentación adicional.
+Bienvenido al directorio de documentación. El contenido está organizado por idioma:
 
-## Contenido
+- **[Español](es/readme.md)** — Documentación principal en español
+- **[English](en/readme.md)** — Main documentation in English
 
-| Archivo | Descripción |
-|---------|-------------|
-| *(pendiente)* | |
+---
 
-## Referencia rápida
+## Estructura
 
-- **README.md** — Documentación principal (guía de inicio, instalación, comandos, panel web, SSL)
-- **CHANGELOGS/CHANGELOG.md** — Registro de cambios del proyecto
-- **Código fuente** en `src/` para referencia técnica
-
-## Documentación que podría agregarse aquí
-
-- Guía de contribución
-- Arquitectura del proyecto
-- API del panel web (endpoints)
-- Estructura de archivos y configuración avanzada
+```
+docs/
+├── readme.md          ← Este archivo (índice)
+├── es/                ← Documentación en español
+│   ├── readme.md      ← Índice de documentación en español
+│   └── ...
+└── en/                ← Documentation in English
+    ├── readme.md      ← English documentation index
+    └── ...
+```

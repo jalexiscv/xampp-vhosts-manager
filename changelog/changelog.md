@@ -26,7 +26,8 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es/1.1.0/).
   - `CHANGELOGS/` → `changelog/`
   - `README_vi.md` → `README.vi.md`
   - `xvhost.hlp` → `xvhost.help.txt`
-  - `docs/README.md` → `docs/readme.md`
+  - `docs/` reestructurado por idioma (`docs/es/`, `docs/en/`)
+- Documento de estandarización agregado en `docs/es/estandarizacion.md`
 
 ### Corregido
 - **Generación SSL:** El serial number del certificado ahora se genera con `openssl rand -hex 16` en lugar de `php -r "echo md5(...)"`, lo que evita fallos cuando PHP no está en el PATH del sistema
