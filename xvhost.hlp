@@ -1,39 +1,40 @@
-Virtual hosts manager for Xampp on Windows OS
----------------------------------------------
+Gestor de hosts virtuales para Xampp en Windows
+------------------------------------------------
 
-Usage:
-    xvhost <command> [HOST_NAME]
+Uso:
+    xvhost <comando> [NOMBRE_HOST]
 
-Available commands:
-    install                 Intergrate Xampp vHosts Manager into Xampp
-                            (require running in Administrator mode).
-    list                    List all existing virtual hosts.
-    new                     Create a new virtual host.
-    show                    Display information of specific virtual host.
-    remove                  Remove specific virtual host.
-    add_ssl                 Add SSL certificate to specific virtual host.
-    remove_ssl              Remove SSL certificate of specific virtual host.
-    change_docroot          Change Document Root of specific virtual host.
-    stop_apache             Stop Apache httpd.
-    start_apache            Start Apache httpd.
-    restart_apache          Stop Apache httpd and start it again.
-    register_path           Register path to Xampp vHosts Manager directory
-                            into Windows Path Environment Variable.
-    grantperms_winhosts     Grant necessary permissions to Windows hosts file.
-    help                    Display the help message.
+Comandos disponibles:
+    install                 Integrar Xampp vHosts Manager en Xampp
+                            (requiere ejecutarse como Administrador).
+    list                    Listar todos los hosts virtuales existentes.
+    new                     Crear un nuevo host virtual.
+    show                    Mostrar información de un host específico.
+    remove                  Eliminar un host virtual específico.
+    add_ssl                 Agregar certificado SSL a un host específico.
+    remove_ssl              Eliminar certificado SSL de un host específico.
+    change_docroot          Cambiar el Document Root de un host específico.
+    stop_apache             Detener Apache httpd.
+    start_apache            Iniciar Apache httpd.
+    restart_apache          Detener Apache httpd y volver a iniciarlo.
+    register_path           Registrar la ruta del directorio de Xampp vHosts
+                            Manager en la variable PATH de Windows.
+    grantperms_winhosts     Conceder los permisos necesarios al archivo
+                            hosts de Windows.
+    help                    Mostrar este mensaje de ayuda.
 
-Examples:
-    xvhost new demo.local
-    - Will start to creating new virtual host with name "demo.local".
+Ejemplos:
+    xvhost new mistio.local
+    - Inicia la creacion de un nuevo host virtual llamado "mistio.local".
 
     xvhost new
-    - Will be asked to enter virtual host name and continue to create it.
+    - Te pedira ingresar el nombre del host y continuara con la creacion.
 
-    xvhost show demo.local
-    - Will display information of virtual host with name "demo.local".
+    xvhost show mistio.local
+    - Muestra informacion del host virtual "mistio.local".
 
     xvhost list
-    - Will list all virtual hosts that you added.
+    - Lista todos los hosts virtuales que has agregado.
 
-    xvhost add_ssl home.local
-    - Will start to adding SSL certificate to virtual host "home.local" if exists.
+    xvhost add_ssl mistio.local
+    - Agrega un certificado SSL al host virtual "mistio.local" si existe.
