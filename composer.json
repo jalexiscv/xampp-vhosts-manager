@@ -1,0 +1,38 @@
+{
+    "name": "jalexiscv/xampp-vhosts-manager",
+    "description": "Virtual hosts and self-signed SSL certificates management system (in console mode) for Xampp on Windows OS.",
+    "keywords": [
+        "xampp",
+        "virtual-hosts",
+        "vhosts",
+        "ssl-certificates",
+        "ssl-cert",
+        "ssl",
+        "domain",
+        "manager",
+        "console"
+    ],
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "php": ">=8.0"
+    },
+    "autoload": {
+        "files": [
+            "src/pre_defined.php",
+            "src/helpers.php"
+        ],
+        "psr-4": {
+            "VhostsManager\\": "src/"
+        }
+    },
+    "scripts": {
+        "post-create-project-cmd": [
+            "xvhost.bat install"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
+    }
+}
