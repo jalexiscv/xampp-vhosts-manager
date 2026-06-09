@@ -58,7 +58,7 @@ exit /B 1
 
 rem ---------------------------------------------
 :help
-type "%XVHM_APP_DIR%\xvhost.hlp"
+type "%XVHM_APP_DIR%\xvhost.help.txt"
 call :clearEnvVars
 exit /B
 

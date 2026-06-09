@@ -13,15 +13,20 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es/1.1.0/).
 - Gestión visual de hosts virtuales (crear, eliminar, listar)
 - Control de Apache desde el navegador (iniciar, detener, reiniciar)
 - Vista de estado de Apache en tiempo real
-- Documentación completa en español (README.md, xvhost.hlp)
+- Documentación completa en español (README.md, xvhost.help.txt)
 - Directorio `docs/` para documentación adicional
-- Directorio `CHANGELOGS/` para registro de cambios
+- Directorio `changelog/` para registro de cambios
 
 ### Cambiado
 - Créditos del proyecto actualizados a Jose Alexis Correa Valencia <jalexiscv@gmail.com>
 - Banner de CLI traducido al español
 - Enlaces del README actualizados al nuevo repositorio
 - Nombre del paquete en `composer.json` actualizado
+- Estandarización de nombres: kebab-case para archivos/dirs no-PHP, PascalCase para PSR-4
+  - `CHANGELOGS/` → `changelog/`
+  - `README_vi.md` → `README.vi.md`
+  - `xvhost.hlp` → `xvhost.help.txt`
+  - `docs/README.md` → `docs/readme.md`
 
 ### Corregido
 - **Generación SSL:** El serial number del certificado ahora se genera con `openssl rand -hex 16` en lugar de `php -r "echo md5(...)"`, lo que evita fallos cuando PHP no está en el PATH del sistema
