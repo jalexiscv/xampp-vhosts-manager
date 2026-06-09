@@ -10,6 +10,7 @@
         AllowOverride All
         Require all granted
     </Directory>
+{{project_root_env}}
     ErrorLog "logs/{{host_name}}-error.log"
     CustomLog "logs/{{host_name}}-access.log" common
 </VirtualHost>

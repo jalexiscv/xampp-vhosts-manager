@@ -10,6 +10,7 @@
         AllowOverride All
         Require all granted
     </Directory>
+{{project_root_env}}
     ErrorLog "logs/{{host_name}}-error.log"
     TransferLog "logs/{{host_name}}-transfer.log"
 
@@ -28,6 +29,8 @@
              nokeepalive ssl-unclean-shutdown \
              downgrade-1.0 force-response-1.0
 
-    CustomLog "logs/{{host_name}}-ssl_request.log" \
-              "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
+    <IfModule log_config_module>
+        CustomLog "logs/ssl_request_log" \
+                  "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
+    </IfModule>
 </VirtualHost>

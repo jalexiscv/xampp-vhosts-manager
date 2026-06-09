@@ -73,6 +73,8 @@ Está diseñado para desarrolladores que trabajan con Xampp y necesitan múltipl
 - Agregar certificados SSL autofirmados a cualquier host
 - Eliminar certificados SSL de un host
 - Cambiar el Document Root de un host existente
+- **Directorio de proyecto separado del directorio de ejecución** — ideal para CodeIgniter 4, Laravel y Symfony
+- **Directiva `SetEnv PROJECT_ROOT`** en los vhosts para acceso desde PHP
 - Iniciar, detener y reiniciar Apache
 - **Panel web** moderno con interfaz gráfica oscura
 - Certificado CA propio que se puede instalar como entidad de confianza en Windows
@@ -159,9 +161,12 @@ xvhost new mistio.local
 > El parámetro `NOMBRE_HOST` es opcional. Si no lo pasas, se te pedirá ingresarlo durante el proceso.
 
 Durante la creación se te preguntará:
-- **Document Root** — ruta donde estarán los archivos del sitio
+- **Document Root** — ruta donde estarán los archivos públicos del sitio
+- **¿Directorio de proyecto separado?** — si respondes que sí, podrás definir un directorio raíz del proyecto distinto al DocumentRoot. Ideal para CodeIgniter 4, Laravel y Symfony donde `public/` es el directorio de ejecución. El vhost incluirá `SetEnv PROJECT_ROOT` para acceso desde PHP.
 - **Email del administrador**
 - **¿Agregar SSL?** — si respondes que sí, se generará automáticamente un certificado SSL autofirmado
+
+> Más información: [docs/es/directorio-proyecto.md](docs/es/directorio-proyecto.md)
 
 ### Ver información de un host
 
@@ -346,6 +351,13 @@ Xampp = "C:\xampp"
 ; Ruta sugerida como DocumentRoot al crear un nuevo host
 ; {{host_name}} se reemplaza por el nombre del host
 DocumentRoot = "C:\xampp\hosts\{{host_name}}"
+
+; Subdirectorio público para frameworks (CI4: "public", tradicional: "public_html" o vacío)
+; Se concatena automáticamente al project root si se usa directorio separado
+PublicSubDir = ""
+
+; Ruta sugerida como directorio de proyecto (hosting) al crear un nuevo host
+ProjectRoot = ""
 
 ; Email sugerido como ServerAdmin
 AdminEmail = "admin@localhost"

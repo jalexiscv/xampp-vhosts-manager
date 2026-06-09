@@ -100,6 +100,28 @@ class Manager extends Application
             $documentRoot      = Console::ask('Enter the path to document root for this host', str_replace('{{host_name}}', $hostName, $docRootSuggestion));
             $documentRoot      = $this->normalizeDocumentRoot($documentRoot);
 
+            // Ask for separate project root (hosting directory for frameworks like CodeIgniter 4, Laravel, Symfony)
+            Console::breakline();
+            $execSubdirSuggestion   = $this->setting->get('Suggestions', 'PublicSubDir', '');
+            $hasSeparateProjectRoot = Console::confirm('Do you want to set a separate project root directory? (for CodeIgniter 4, Laravel, Symfony)', false);
+
+            if ($hasSeparateProjectRoot) {
+                $projectRootSuggestion = $this->setting->get('Suggestions', 'ProjectRoot', dirname($documentRoot));
+                Console::breakline();
+                $projectRoot  = Console::ask('Enter the project root (hosting directory) for this host', $projectRootSuggestion);
+                $projectRoot  = $this->normalizeDocumentRoot($projectRoot);
+
+                // If a public subdir is configured, append it to the document root
+                if (! empty($execSubdirSuggestion)) {
+                    $execDir = $projectRoot . '\\' . $execSubdirSuggestion;
+                    Console::breakline();
+                    Console::line('Note: DocumentRoot will be set to "' . $execDir . '" (project root + "' . $execSubdirSuggestion . '").');
+                    $documentRoot = $execDir;
+                }
+            } else {
+                $projectRoot = $documentRoot;
+            }
+
             Console::breakline();
             $emailSuggestion = $this->setting->get('Suggestions', 'AdminEmail', 'webmaster@example.com');
             $adminEmail      = Console::ask('Enter admin email for this host', $emailSuggestion);
@@ -120,7 +142,7 @@ class Manager extends Application
             }
 
             // Create vhost config file
-            $vhostConfigFile = $this->createHostConfigFile($hostName, $hostPort, $adminEmail, $documentRoot);
+            $vhostConfigFile = $this->createHostConfigFile($hostName, $hostPort, $adminEmail, $documentRoot, $projectRoot);
 
             if (is_null($vhostConfigFile)) {
                 Console::breakline();
@@ -273,7 +295,7 @@ class Manager extends Application
             }
 
             // Create vhost SSL config file
-            $sslConfigFile = $this->createSSLConfigFile($hostName, $sslPort, $hostInfo['serverAdmin'], $hostInfo['documentRoot']);
+            $sslConfigFile = $this->createSSLConfigFile($hostName, $sslPort, $hostInfo['serverAdmin'], $hostInfo['documentRoot'], $hostInfo['projectRoot'] ?? null);
 
             if (is_null($sslConfigFile)) {
                 if ($processStandalone) {
@@ -694,6 +716,7 @@ class Manager extends Application
             'serverAlias'     => $vhostConfigs['ServerAlias'] ?? null,
             'serverAdmin'     => $vhostConfigs['ServerAdmin'] ?? null,
             'documentRoot'    => osstyle_path($vhostConfigs['DocumentRoot'] ?? ''),
+            'projectRoot'     => $this->extractProjectRoot($vhostConfigs),
             'sslConfigFile'   => $sslConfigFile,
             'sslPort'         => $sslPort,
             'certFile'        => $certFile,
@@ -751,7 +774,7 @@ class Manager extends Application
         Console::terminate('Error while creating document root.', 1);
     }
 
-    private function createHostConfigFile($hostName, $hostPort, $adminEmail, $documentRoot)
+    private function createHostConfigFile($hostName, $hostPort, $adminEmail, $documentRoot, $projectRoot = null)
     {
         $message = 'Generating host config file...';
         Console::line($message, false);
@@ -761,12 +784,19 @@ class Manager extends Application
         $search[] = '{{host_port}}';
         $search[] = '{{admin_email}}';
         $search[] = '{{document_root}}';
+        $search[] = '{{project_root_env}}';
+
+        $projectRootEnv = '';
+        if (! is_null($projectRoot) && $projectRoot !== $documentRoot) {
+            $projectRootEnv = '    SetEnv PROJECT_ROOT "' . unixstyle_path($projectRoot) . '"';
+        }
 
         $replace   = [];
         $replace[] = $hostName;
         $replace[] = $hostPort;
         $replace[] = $adminEmail;
         $replace[] = unixstyle_path($documentRoot);
+        $replace[] = $projectRootEnv;
 
         $template   = $this->paths['vhostConfigTemplate'];
         $configFile = $this->paths['vhostConfigDir'] .DS. $hostName . '.conf';
@@ -781,7 +811,7 @@ class Manager extends Application
         return null;
     }
 
-    private function createSSLConfigFile($hostName, $sslPort, $adminEmail, $documentRoot)
+    private function createSSLConfigFile($hostName, $sslPort, $adminEmail, $documentRoot, $projectRoot = null)
     {
         $message = 'Generating SSL config file...';
         Console::line($message, false);
@@ -793,6 +823,12 @@ class Manager extends Application
         $search[]  = '{{document_root}}';
         $search[]  = '{{cert_file}}';
         $search[]  = '{{cert_key_file}}';
+        $search[]  = '{{project_root_env}}';
+
+        $projectRootEnv = '';
+        if (! is_null($projectRoot) && $projectRoot !== $documentRoot) {
+            $projectRootEnv = '    SetEnv PROJECT_ROOT "' . unixstyle_path($projectRoot) . '"';
+        }
 
         $replace   = [];
         $replace[] = $hostName;
@@ -801,6 +837,7 @@ class Manager extends Application
         $replace[] = unixstyle_path($documentRoot);
         $replace[] = relative_path($this->paths['apacheDir'], $this->paths['vhostCertDir'], '/') . '/' . $hostName . '.cert';
         $replace[] = relative_path($this->paths['apacheDir'], $this->paths['vhostCertKeyDir'], '/') . '/' . $hostName . '.key';
+        $replace[] = $projectRootEnv;
 
         $template   = $this->paths['vhostSSLConfigTemplate'];
         $configFile = $this->paths['vhostSSLConfigDir'] .DS. $hostName . '.conf';
@@ -991,5 +1028,28 @@ class Manager extends Application
             Console::breakline();
             Console::line($indentString . '(Use the command "xvhost show ' . $hostInfo['serverName'] . '" for more details.)');
         }
+    }
+
+    /**
+     * Extract PROJECT_ROOT from a parsed vhost config (SetEnv directive).
+     */
+    private function extractProjectRoot($vhostConfigs)
+    {
+        if (isset($vhostConfigs['SetEnv']) && is_string($vhostConfigs['SetEnv'])) {
+            if (preg_match('/^PROJECT_ROOT\\s+\"([^\"]+)\"/', $vhostConfigs['SetEnv'], $m)) {
+                return osstyle_path($m[1]);
+            }
+        } elseif (isset($vhostConfigs['SetEnv']) && is_array($vhostConfigs['SetEnv'])) {
+            // When SetEnv is parsed as an array (multiple SetEnv lines)
+            foreach ($vhostConfigs['SetEnv'] as $key => $value) {
+                if (strpos($key, 'PROJECT_ROOT') === 0) {
+                    if (preg_match('/^PROJECT_ROOT\\s+\"([^\"]+)\"/', $key, $m)) {
+                        return osstyle_path($m[1]);
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 }

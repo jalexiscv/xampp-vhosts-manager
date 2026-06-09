@@ -6,6 +6,28 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es/1.1.0/).
 
 ---
 
+## [1.1.0] — 2026-06-09
+
+### Añadido
+- **Directorio de proyecto separado del directorio de ejecución** — al crear un host virtual con `xvhost new`, ahora se pregunta si deseas definir un directorio raíz del proyecto distinto al DocumentRoot. Ideal para CodeIgniter 4, Laravel, Symfony y otros frameworks que usan `public/` como punto de entrada.
+- **Directiva `SetEnv PROJECT_ROOT`** en los archivos de configuración de Apache — disponible como `$_SERVER['PROJECT_ROOT']` en PHP.
+- **Nueva clave `PublicSubDir` en `settings.ini`** — permite preconfigurar un subdirectorio público (ej: `public`) que se concatena automáticamente al directorio de proyecto.
+- **Nueva clave `ProjectRoot` en `settings.ini`** — permite personalizar la sugerencia de directorio de proyecto.
+- **Documentación:** `docs/es/directorio-proyecto.md` y `docs/en/project-root-directory.md` con explicación detallada del nuevo feature.
+
+### Cambiado
+- `Manager.php::newHost()` — nuevo flujo interactivo con pregunta de directorio de proyecto separado.
+- `Manager.php::createHostConfigFile()` — acepta parámetro `$projectRoot` y genera `SetEnv PROJECT_ROOT`.
+- `Manager.php::createSSLConfigFile()` — acepta parámetro `$projectRoot` para configuraciones SSL.
+- `Manager.php::getHostInfo()` — ahora incluye `projectRoot` extraído del archivo de configuración.
+- Plantillas `vhost.conf.tpl` y `vhost_ssl.conf.tpl` — añadido marcador `{{project_root_env}}`.
+- `README.md` — actualizada la sección "Crear un host virtual" y "Configuración".
+
+### Corregido
+- **Apache no se reiniciaba automáticamente** tras crear un host virtual, lo que hacía que el nuevo vhost mostrara el directorio raíz del servidor en lugar del DocumentRoot configurado. Ahora se recomienda verificar con `httpd.exe -S` y reiniciar Apache después de crear o modificar vhosts.
+
+---
+
 ## [1.0.0] — 2026-06-09
 
 ### Añadido

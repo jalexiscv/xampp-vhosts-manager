@@ -413,6 +413,14 @@ as Administrator. You will no longer need elevated permissions to create hosts a
 
 ---
 
+## Documentation
+
+| Document | Description |
+|-----------|-------------|
+| [project-root-directory.md](project-root-directory.md) | Project root separate from execution directory (v1.1.0) |
+
+---
+
 ## License
 
 [MIT](../../LICENSE) © Jose Alexis Correa Valencia

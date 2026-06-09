@@ -8,6 +8,7 @@ Bienvenido a la documentación de Xampp vHosts Manager.
 |-----------|-------------|
 | [readme.md](readme.md) | Este archivo (índice) |
 | [estandarizacion.md](estandarizacion.md) | Convención de nombres del proyecto y su justificación |
+| [directorio-proyecto.md](directorio-proyecto.md) | Directorio de proyecto separado del directorio de ejecución (v1.1.0) |
 
 ## Otros idiomas
 
