@@ -9,6 +9,18 @@ Bienvenido a la documentación de Xampp vHosts Manager.
 | [readme.md](readme.md) | Este archivo (índice) |
 | [estandarizacion.md](estandarizacion.md) | Convención de nombres del proyecto y su justificación |
 
+## Otros idiomas
+
+| Idioma | Documento |
+|--------|-----------|
+| English | [docs/en/readme.md](../en/readme.md) |
+| Français | [docs/fr/readme.md](../fr/readme.md) |
+| Português | [docs/pt/readme.md](../pt/readme.md) |
+| Deutsch | [docs/de/readme.md](../de/readme.md) |
+| 简体中文 | [docs/zh-CN/readme.md](../zh-CN/readme.md) |
+| 日本語 | [docs/ja/readme.md](../ja/readme.md) |
+| Русский | [docs/ru/readme.md](../ru/readme.md) |
+
 ## Enlaces útiles
 
 - [README principal](../../README.md)

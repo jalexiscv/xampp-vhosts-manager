@@ -5,7 +5,7 @@ Sistema de gestión de hosts virtuales y certificados SSL autofirmados para Xamp
 **Autor:** Jose Alexis Correa Valencia — [jalexiscv@gmail.com](mailto:jalexiscv@gmail.com)
 **Licencia:** [MIT](LICENSE)
 **Changelog:** [changelog/changelog.md](changelog/changelog.md)
-**Documentación:** [docs/es/](docs/es/readme.md) • [docs/en/](docs/en/readme.md)
+**Documentación:** [Español](docs/es/readme.md) • [English](docs/en/readme.md) • [Français](docs/fr/readme.md) • [Português](docs/pt/readme.md) • [Deutsch](docs/de/readme.md) • [简体中文](docs/zh-CN/readme.md) • [日本語](docs/ja/readme.md) • [Русский](docs/ru/readme.md)
 
 ![Xampp vHosts Manager](https://user-images.githubusercontent.com/9862115/70820328-f78de800-1e0a-11ea-894a-b7021942c158.jpg)
 

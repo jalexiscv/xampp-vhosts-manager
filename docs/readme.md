@@ -1,9 +1,21 @@
 # Documentación
 
-Bienvenido al directorio de documentación. El contenido está organizado por idioma:
+Bienvenido al directorio de documentación. El contenido está organizado por idioma.
 
-- **[Español](es/readme.md)** — Documentación principal en español
-- **[English](en/readme.md)** — Main documentation in English
+---
+
+## Idiomas disponibles
+
+| Idioma | Directorio | Documento |
+|--------|-----------|-----------|
+| Español | `docs/es/` | [readme.md](es/readme.md) |
+| English | `docs/en/` | [readme.md](en/readme.md) |
+| Français | `docs/fr/` | [readme.md](fr/readme.md) |
+| Português | `docs/pt/` | [readme.md](pt/readme.md) |
+| Deutsch | `docs/de/` | [readme.md](de/readme.md) |
+| 简体中文 | `docs/zh-CN/` | [readme.md](zh-CN/readme.md) |
+| 日本語 | `docs/ja/` | [readme.md](ja/readme.md) |
+| Русский | `docs/ru/` | [readme.md](ru/readme.md) |
 
 ---
 
@@ -11,11 +23,13 @@ Bienvenido al directorio de documentación. El contenido está organizado por id
 
 ```
 docs/
-├── readme.md          ← Este archivo (índice)
-├── es/                ← Documentación en español
-│   ├── readme.md      ← Índice de documentación en español
-│   └── ...
-└── en/                ← Documentation in English
-    ├── readme.md      ← English documentation index
-    └── ...
+├── readme.md       ← Este archivo (índice multilingüe)
+├── es/             ← Español
+├── en/             ← English
+├── fr/             ← Français
+├── pt/             ← Português
+├── de/             ← Deutsch
+├── zh-CN/          ← 简体中文
+├── ja/             ← 日本語
+└── ru/             ← Русский
 ```
